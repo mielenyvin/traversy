@@ -3,19 +3,19 @@ import Layout from '@/components/Layout'
 import EventItem from '@/components/EventItem'
 import { API_URL } from '@/config/index'
 
-export default function HomePage({ events }) {
+export default function HomePage({ news }) {
   return (
     <Layout>
-      <h1>Upcoming Events</h1>
-      {events.length === 0 && <h3>No events to show</h3>}
+      <h1>Upcoming news</h1>
+      {news.length === 0 && <h3>No news to show</h3>}
 
-      {events.map((evt) => (
-        <EventItem key={evt.id} evt={evt} />
+      {news.map((nw) => (
+        <EventItem key={nw.id} nw={nw} />
       ))}
 
-      {events.length > 0 && (
-        <Link href='/events'>
-          <a className='btn-secondary'>View All Events</a>
+      {news.length > 0 && (
+        <Link href='/news'>
+          <a className='btn-secondary'>View All news</a>
         </Link>
       )}
     </Layout>
@@ -23,11 +23,11 @@ export default function HomePage({ events }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/events?_sort=date:ASC&_limit=3`)
-  const events = await res.json()
+  const res = await fetch(`${API_URL}/news?_sort=date:ASC&_limit=3`)
+  const news = await res.json()
 
   return {
-    props: { events },
+    props: { news },
     revalidate: 1,
   }
 }

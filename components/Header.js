@@ -12,7 +12,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.logo}>
         <Link href='/'>
-          <a>DJ Events</a>
+          <a>DJ news</a>
         </Link>
       </div>
 
@@ -21,15 +21,15 @@ export default function Header() {
       <nav>
         <ul>
           <li>
-            <Link href='/events'>
-              <a>Events</a>
+            <Link href='/news'>
+              <a>news</a>
             </Link>
           </li>
           {user ? (
             // If logged in
             <>
               <li>
-                <Link href='/events/add'>
+                <Link href='/news/add'>
                   <a>Add Event</a>
                 </Link>
               </li>

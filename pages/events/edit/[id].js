@@ -13,18 +13,18 @@ import ImageUpload from '@/components/ImageUpload'
 import { API_URL } from '@/config/index'
 import styles from '@/styles/Form.module.css'
 
-export default function EditEventPage({ evt, token }) {
+export default function EditEventPage({ nw, token }) {
   const [values, setValues] = useState({
-    name: evt.name,
-    performers: evt.performers,
-    venue: evt.venue,
-    address: evt.address,
-    date: evt.date,
-    time: evt.time,
-    description: evt.description,
+    name: nw.name,
+    performers: nw.performers,
+    venue: nw.venue,
+    address: nw.address,
+    date: nw.date,
+    time: nw.time,
+    description: nw.description,
   })
   const [imagePreview, setImagePreview] = useState(
-    evt.image ? evt.image.formats.thumbnail.url : null
+    nw.image ? nw.image.formats.thumbnail.url : null
   )
   const [showModal, setShowModal] = useState(false)
 
@@ -42,7 +42,7 @@ export default function EditEventPage({ evt, token }) {
       toast.error('Please fill in all fields')
     }
 
-    const res = await fetch(`${API_URL}/events/${evt.id}`, {
+    const res = await fetch(`${API_URL}/news/${nw.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -58,8 +58,8 @@ export default function EditEventPage({ evt, token }) {
       }
       toast.error('Something Went Wrong')
     } else {
-      const evt = await res.json()
-      router.push(`/events/${evt.slug}`)
+      const nw = await res.json()
+      router.push(`/news/${nw.slug}`)
     }
   }
 
@@ -69,7 +69,7 @@ export default function EditEventPage({ evt, token }) {
   }
 
   const imageUploaded = async (e) => {
-    const res = await fetch(`${API_URL}/events/${evt.id}`)
+    const res = await fetch(`${API_URL}/news/${nw.id}`)
     const data = await res.json()
     setImagePreview(data.image.formats.thumbnail.url)
     setShowModal(false)
@@ -77,7 +77,7 @@ export default function EditEventPage({ evt, token }) {
 
   return (
     <Layout title='Add New Event'>
-      <Link href='/events'>Go Back</Link>
+      <Link href='/news'>Go Back</Link>
       <h1>Edit Event</h1>
       <ToastContainer />
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -178,7 +178,7 @@ export default function EditEventPage({ evt, token }) {
 
       <Modal show={showModal} onClose={() => setShowModal(false)}>
         <ImageUpload
-          evtId={evt.id}
+          nwId={nw.id}
           imageUploaded={imageUploaded}
           token={token}
         />
@@ -190,12 +190,12 @@ export default function EditEventPage({ evt, token }) {
 export async function getServerSideProps({ params: { id }, req }) {
   const { token } = parseCookies(req)
 
-  const res = await fetch(`${API_URL}/events/${id}`)
-  const evt = await res.json()
+  const res = await fetch(`${API_URL}/news/${id}`)
+  const nw = await res.json()
 
   return {
     props: {
-      evt,
+      nw,
       token,
     },
   }

@@ -5,12 +5,12 @@ import DashboardEvent from '@/components/DashboardEvent'
 import { API_URL } from '@/config/index'
 import styles from '@/styles/Dashboard.module.css'
 
-export default function DashboardPage({ events, token }) {
+export default function DashboardPage({ news, token }) {
   const router = useRouter()
 
   const deleteEvent = async (id) => {
     if (confirm('Are you sure?')) {
-      const res = await fetch(`${API_URL}/events/${id}`, {
+      const res = await fetch(`${API_URL}/news/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -31,10 +31,10 @@ export default function DashboardPage({ events, token }) {
     <Layout title='User Dashboard'>
       <div className={styles.dash}>
         <h1>Dashboard</h1>
-        <h3>My Events</h3>
+        <h3>My news</h3>
 
-        {events.map((evt) => (
-          <DashboardEvent key={evt.id} evt={evt} handleDelete={deleteEvent} />
+        {news.map((nw) => (
+          <DashboardEvent key={nw.id} nw={nw} handleDelete={deleteEvent} />
         ))}
       </div>
     </Layout>
@@ -44,18 +44,18 @@ export default function DashboardPage({ events, token }) {
 export async function getServerSideProps({ req }) {
   const { token } = parseCookies(req)
 
-  const res = await fetch(`${API_URL}/events/me`, {
+  const res = await fetch(`${API_URL}/news/me`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
     },
   })
 
-  const events = await res.json()
+  const news = await res.json()
 
   return {
     props: {
-      events,
+      news,
       token,
     },
   }

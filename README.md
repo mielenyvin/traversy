@@ -1,18 +1,18 @@
-# DJ Events (Frontend)
+# DJ news (Frontend)
 
-> Next.js website for DJ Events. This site uses Strapi as a backend. The repo for that is below
+> Next.js website for DJ news. This site uses Strapi as a backend. The repo for that is below
 
 This project is part of my [Next.js Udemy course](https://www.udemy.com/course/nextjs-dev-to-deployment)
 
-![DJ Events](/public/images/screen.png 'DJ Events')
+![DJ news](/public/images/screen.png 'DJ news')
 
-[VIEW DEMO](https://djeventsfrontend.vercel.app)
+[VIEW DEMO](https://djnewsfrontend.vercel.app)
 
 # Usage
 
 ### Setup Backend
 
-The Strapi backend can be found [here](https://github.com/bradtraversy/dj-events-backend)
+The Strapi backend can be found [here](https://github.com/bradtraversy/dj-news-backend)
 
 Clone the repo above and run your backend
 
